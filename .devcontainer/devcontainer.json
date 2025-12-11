@@ -1,0 +1,15 @@
+{
+  "name": "personal-ai-agent",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "postCreateCommand": "pip install -r requirements.txt",
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": {
+      "label": "FastAPI",
+      "onAutoForward": "openBrowser"
+    }
+  }
+}

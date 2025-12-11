@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+python-telegram-bot[ext]
+pydantic
+aiohttp
+aiosqlite
+requests
+python-dotenv
+msal
