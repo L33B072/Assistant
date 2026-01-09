@@ -51,7 +51,7 @@ OPENAI_API_KEY=sk-your_openai_api_key
 
 The Obsidian vault path is configured in `app/config.py`:
 ```python
-obsidian_local_path: str = r"C:\Users\leebe\OneDrive - MOG Pattern & Machine Corp\Apps\obsidian\plan_25"
+obsidian_local_path: str = r"C:\Users\user\OneDrive folder\Apps\obsidian\your_vault"
 ```
 
 ### 4. Run Tests
