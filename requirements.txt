@@ -2,8 +2,10 @@ fastapi
 uvicorn[standard]
 python-telegram-bot[ext]
 pydantic
+pydantic-settings
 aiohttp
 aiosqlite
+aiofiles
 requests
 python-dotenv
 msal

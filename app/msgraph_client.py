@@ -1,5 +1,7 @@
 import aiohttp
 from msal import ConfidentialClientApplication
+from datetime import datetime, timedelta, timezone
+from typing import List, Dict, Any
 
 from .config import settings
 
@@ -33,11 +35,30 @@ class MSGraphClient:
                 return await resp.json()
 
     async def get_today_calendar(self):
-        # TODO: add start/end ISO params for today
+        """Get today's calendar events from Outlook."""
+        # Get start and end of today in UTC
+        now = datetime.now(timezone.utc)
+        start_of_day = now.replace(hour=0, minute=0, second=0, microsecond=0)
+        end_of_day = start_of_day + timedelta(days=1)
+        
         params = {
-            # Example params stub
+            "startDateTime": start_of_day.isoformat(),
+            "endDateTime": end_of_day.isoformat(),
+            "$select": "subject,start,end,isAllDay,location,organizer,attendees",
+            "$orderby": "start/dateTime"
         }
         return await self._get("/me/calendarview", params=params)
+
+    async def get_calendar_events(self, start_date: datetime, end_date: datetime) -> List[Dict[str, Any]]:
+        """Get calendar events for a specific date range."""
+        params = {
+            "startDateTime": start_date.isoformat(),
+            "endDateTime": end_date.isoformat(),
+            "$select": "subject,start,end,isAllDay,location,organizer,attendees,showAs",
+            "$orderby": "start/dateTime"
+        }
+        result = await self._get("/me/calendarview", params=params)
+        return result.get("value", [])
 
     async def get_obsidian_file_text(self, path: str) -> str:
         """Reads a markdown file from OneDrive/Obsidian path."""
@@ -48,3 +69,38 @@ class MSGraphClient:
             async with session.get(url, headers=headers) as resp:
                 resp.raise_for_status()
                 return await resp.text()
+
+
+def format_calendar_summary(events: List[Dict[str, Any]]) -> str:
+    """Format calendar events into a readable summary."""
+    if not events:
+        return "No calendar events today."
+    
+    summary_lines = ["Today's Calendar:"]
+    for event in events:
+        subject = event.get("subject", "No subject")
+        start_time = event.get("start", {}).get("dateTime", "")
+        end_time = event.get("end", {}).get("dateTime", "")
+        is_all_day = event.get("isAllDay", False)
+        
+        if is_all_day:
+            summary_lines.append(f"  • {subject} (All day)")
+        else:
+            # Parse and format times
+            try:
+                start_dt = datetime.fromisoformat(start_time.replace('Z', '+00:00'))
+                end_dt = datetime.fromisoformat(end_time.replace('Z', '+00:00'))
+                time_str = f"{start_dt.strftime('%H:%M')}-{end_dt.strftime('%H:%M')}"
+                summary_lines.append(f"  • {time_str}: {subject}")
+            except:
+                summary_lines.append(f"  • {subject}")
+    
+    return "\n".join(summary_lines)
+
+
+async def get_today_calendar_summary() -> str:
+    """Convenience function to get today's calendar as a formatted summary."""
+    client = MSGraphClient()
+    result = await client.get_today_calendar()
+    events = result.get("value", [])
+    return format_calendar_summary(events)

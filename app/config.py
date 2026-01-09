@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 load_dotenv()  # Loads from .env in Codespace (not committed)
 
@@ -19,6 +19,8 @@ class Settings(BaseSettings):
 
     # Obsidian / OneDrive
     obsidian_root_path: str = "/ObsidianVault"  # OneDrive path root
+    obsidian_vault_id: str = "be5d785542010096"  # OneDrive vault ID
+    obsidian_local_path: str = r"C:\Users\leebe\OneDrive - MOG Pattern & Machine Corp\Apps\obsidian\plan_25"
 
     # Misc
     database_path: str = "data/time_tracking.db"
