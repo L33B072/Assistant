@@ -78,10 +78,12 @@ The task will be marked with `- [x]` in your Obsidian vault.
 
 ## File Location
 
-All tasks are stored in:
+All tasks are stored in your configured Obsidian vault:
 ```
-C:\Users\leebe\OneDrive - MOG Pattern & Machine Corp\Apps\obsidian\plan_25\WeeklyPlan.md
+{your_vault_path}\WeeklyPlan.md
 ```
+
+Configure the path in your `.env` file or `app/config.py`.
 
 Changes made through Telegram are **immediately synced** to your Obsidian vault!
 

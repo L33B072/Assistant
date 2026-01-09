@@ -19,8 +19,8 @@ class Settings(BaseSettings):
 
     # Obsidian / OneDrive
     obsidian_root_path: str = "/ObsidianVault"  # OneDrive path root
-    obsidian_vault_id: str = "be5d785542010096"  # OneDrive vault ID
-    obsidian_local_path: str = r"C:\Users\leebe\OneDrive - MOG Pattern & Machine Corp\Apps\obsidian\plan_25"
+    obsidian_vault_id: str = "your_vault_id"  # OneDrive vault ID
+    obsidian_local_path: str = r"C:\Users\YourName\OneDrive\path\to\your\vault"
 
     # Misc
     database_path: str = "data/time_tracking.db"

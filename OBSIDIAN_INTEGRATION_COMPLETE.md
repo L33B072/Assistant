@@ -22,12 +22,12 @@
    - `/calendar` - View today's schedule from Outlook
    - Integrated into `/focus` command
 
-### 📁 Your Vault Configuration
+### 📁 Vault Configuration
 
+Configure your vault path in your `.env` file or `app/config.py`:
 ```
-Path: C:\Users\leebe\OneDrive - MOG Pattern & Machine Corp\Apps\obsidian\plan_25
-Vault ID: be5d785542010096
-Files Found: 45 markdown files
+Path: C:\Users\YourName\OneDrive\path\to\your\vault
+Vault ID: your_vault_id
 ```
 
 ### 🧪 Test Results

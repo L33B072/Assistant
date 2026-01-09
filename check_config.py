@@ -76,7 +76,7 @@ def check_config():
     print("Obsidian Vault")
     print("=" * 60)
     
-    vault_path = r"C:\Users\leebe\OneDrive - MOG Pattern & Machine Corp\Apps\obsidian\plan_25"
+    vault_path = settings.obsidian_local_path
     if os.path.exists(vault_path):
         print(f"✅ Vault directory exists: {vault_path}")
         md_files = list(Path(vault_path).rglob("*.md"))
