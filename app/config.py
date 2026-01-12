@@ -16,6 +16,7 @@ class Settings(BaseSettings):
 
     # LLM / OpenAI or others
     openai_api_key: str | None = None
+    anthropic_api_key: str | None = None
 
     # Obsidian / OneDrive
     obsidian_root_path: str = "/ObsidianVault"  # OneDrive path root
