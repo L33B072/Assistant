@@ -10,3 +10,5 @@ requests
 python-dotenv
 msal
 anthropic
+pytz
+python-dateutil

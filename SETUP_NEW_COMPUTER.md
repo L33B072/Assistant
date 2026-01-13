@@ -31,9 +31,9 @@ This guide will help you get the Assistant bot running on any of your computers.
    - The `.env` file should sync via OneDrive (it's local-only, not in GitHub)
    - Check that it contains:
      ```
-     TELEGRAM_BOT_TOKEN="your-token-here"
-     ANTHROPIC_API_KEY=syour-token-here-...
-     OBSIDIAN_LOCAL_PATH=C:\Users\YourName\Your_OneDrive\Apps\obsidian\your_vault
+     TELEGRAM_BOT_TOKEN="your_API_token_here"
+     ANTHROPIC_API_KEY=your_API_token_here
+     OBSIDIAN_LOCAL_PATH=C:\Users\YourName\your_OneDrive\Apps\obsidian\your_vault
      OBSIDIAN_VAULT_ID=your_vault_ID
      ```
    - **Important:** Update `OBSIDIAN_LOCAL_PATH` to match the path on this computer!

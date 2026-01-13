@@ -113,6 +113,50 @@ async def write_obsidian_note(relative_path: str, content: str) -> bool:
         print(f"Error writing to {relative_path}: {e}")
         return False
 
+async def create_obsidian_page(page_name: str, content: str = "") -> bool:
+    """
+    Create a new Obsidian page with the given name.
+    Returns True if successful, False otherwise.
+    """
+    # Ensure the page name ends with .md
+    if not page_name.endswith('.md'):
+        page_name = f"{page_name}.md"
+    
+    # Default content if none provided
+    if not content:
+        # Get current date for page creation
+        from datetime import datetime
+        today = datetime.now().strftime("%Y-%m-%d")
+        content = f"# {page_name[:-3]}\n\nCreated: {today}\n\n"
+    
+    return await write_obsidian_note(page_name, content)
+
+async def append_to_obsidian_page(page_name: str, content: str) -> bool:
+    """
+    Append content to an existing Obsidian page, or create it if it doesn't exist.
+    Returns True if successful, False otherwise.
+    """
+    # Ensure the page name ends with .md
+    if not page_name.endswith('.md'):
+        page_name = f"{page_name}.md"
+    
+    try:
+        # Try to read existing content first
+        try:
+            existing_content = await read_obsidian_note(page_name)
+            # Append new content with spacing
+            updated_content = f"{existing_content}\n\n---\n\n{content}"
+        except:
+            # File doesn't exist, create it with just the new content
+            from datetime import datetime
+            today = datetime.now().strftime("%Y-%m-%d")
+            updated_content = f"# {page_name[:-3]}\n\nCreated: {today}\n\n{content}"
+        
+        return await write_obsidian_note(page_name, updated_content)
+    except Exception as e:
+        print(f"Error appending to {page_name}: {e}")
+        return False
+
 
 async def add_task_to_note(task_description: str, note_path: str = "WeeklyPlan.md", section: str = "## This Week's Priorities") -> bool:
     """

@@ -82,3 +82,21 @@ async def get_active_entry() -> Optional[dict]:
             "billable": bool(row[3]),
             "notes": row[4],
         }
+
+async def get_all_active_entries() -> List[dict]:
+    """Get all currently running timers"""
+    async with aiosqlite.connect(DB_PATH) as db:
+        cursor = await db.execute(
+            "SELECT id, task_id, start_time, billable, notes FROM time_entries WHERE end_time IS NULL ORDER BY start_time DESC"
+        )
+        rows = await cursor.fetchall()
+        return [
+            {
+                "id": row[0],
+                "task_id": row[1],
+                "start_time": row[2],
+                "billable": bool(row[3]),
+                "notes": row[4],
+            }
+            for row in rows
+        ]

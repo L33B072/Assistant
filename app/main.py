@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
 from .time_tracker import init_db
+from .conversation_log import init_conversation_db
 from .telegram_bot import build_telegram_app
 
 telegram_app = None
@@ -12,6 +13,7 @@ async def lifespan(app: FastAPI):
     # Startup
     global telegram_app
     await init_db()
+    await init_conversation_db()
     telegram_app = build_telegram_app()
     
     # Initialize and start the telegram app

@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     ms_tenant_id: str
     ms_client_secret: str
     ms_scope: str = "https://graph.microsoft.com/.default"
+    ms_user_email: str = "lee.bernard@mogpm.com"  # Your work email for calendar access
+    ms_user_timezone: str = "Central Standard Time"  # Outlook timezone name
 
     # LLM / OpenAI or others
     openai_api_key: str | None = None
@@ -21,7 +23,7 @@ class Settings(BaseSettings):
     # Obsidian / OneDrive
     obsidian_root_path: str = "/ObsidianVault"  # OneDrive path root
     obsidian_vault_id: str = "your_vault_id"  # OneDrive vault ID
-    obsidian_local_path: str = r"C:\Users\YourName\OneDrive\path\to\your\vault"
+    obsidian_local_path: str = r"C:\Users\leebe\OneDrive - MOG Pattern & Machine Corp\Apps\obsidian\plan_25"
 
     # Misc
     database_path: str = "data/time_tracking.db"
